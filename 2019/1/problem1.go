@@ -41,14 +41,25 @@ func get_input(input_file string) []int {
 	return lines
 }
 
-func module_weight_to_fuel(weight int) int {
+func weight_to_fuel(weight int) int {
 	return int(math.Floor(float64(weight)/3.0) - 2)
+}
+
+func module_to_fuel(weight int) int {
+	total_fuel := 0
+	for weight > 0 {
+		weight = weight_to_fuel(weight)
+		if weight > 0 {
+			total_fuel = total_fuel + weight
+		}
+	}
+	return total_fuel
 }
 
 func convert_modules_to_fuel(module_weights []int) int {
 	fuel_weight := 0
 	for _, this_weight := range module_weights {
-		fuel_weight = fuel_weight + module_weight_to_fuel(this_weight)
+		fuel_weight = fuel_weight + module_to_fuel(this_weight)
 	}
 	return fuel_weight
 }
