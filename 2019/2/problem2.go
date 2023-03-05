@@ -66,12 +66,12 @@ var outcomes = map[outcome_type]outcome_handler{
 }
 
 func main() {
-	state := system_state{
-		prog: read_program_from_file(INPUT_FILE),
-		pc:   0,
+	base_program := read_program_from_file(INPUT_FILE)
+	outcome, err := hunt_for_outcomes(19690720, base_program)
+	if err != nil {
+		fmt.Println("Failed to find solution")
 	}
-	state = run_program(state)
-	fmt.Printf("%d\n", state.prog[0])
+	fmt.Println(outcome)
 }
 
 func run_program(state system_state) system_state {
