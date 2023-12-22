@@ -1,0 +1,16 @@
+run := "bazel run"
+
+gazelle:
+  {{run}} //:gazelle
+
+run target:
+  {{run}} {{target}}
+
+test target="":
+  #!/usr/bin/env bash
+  if [ -z {{target}} ]
+  then
+    bazel test //...
+  else
+    bazel test //{{target}}:{{target}}_test
+  fi

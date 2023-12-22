@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "3_lib",
+    srcs = ["problem3.go"],
+    importpath = "github.com/aler9/rtsp-simple-server/3",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "3",
+    embed = [":3_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "3_test",
+    srcs = ["problem3_test.go"],
+    embed = [":3_lib"],
+)
